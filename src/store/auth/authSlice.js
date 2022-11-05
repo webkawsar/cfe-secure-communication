@@ -22,7 +22,7 @@ export const authLogin = createAsyncThunk('auth/login', async (data, thunkApi) =
         
     } catch (error) {
        
-        // console.log(error?.response?.data?.error?.message, 'authLogin error')
+        console.log(error?.response?.data?.error, 'authLogin error')
         return thunkApi.rejectWithValue(error?.response?.data?.error?.message);
     }
 })
