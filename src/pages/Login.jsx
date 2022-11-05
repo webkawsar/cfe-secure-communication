@@ -13,7 +13,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import React from "react";
 
-function Copyright(props) {
+const  Copyright = (props) => {
   return (
     <Typography
       variant="body2"
@@ -21,19 +21,16 @@ function Copyright(props) {
       align="center"
       {...props}
     >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      {"Developed by "}
+      <Link color="inherit" href="https://facebook.com/webkawsar">
+        Kawsar Ahmed
       </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
     </Typography>
   );
 }
 
 const theme = createTheme();
 const Login = () => {
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -42,7 +39,6 @@ const Login = () => {
       email: data.get("email"),
       password: data.get("password"),
     });
-    
   };
 
   return (

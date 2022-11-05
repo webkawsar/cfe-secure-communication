@@ -5,8 +5,13 @@ import "@fontsource/roboto/700.css";
 import React from "react";
 import Login from "./pages/Login";
 
+
 const App = () => {
-  return <Login />;
+  return (
+    <>
+      <Login />
+    </>
+  )
 };
 
 export default App;
