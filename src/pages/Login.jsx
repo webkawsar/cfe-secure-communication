@@ -12,6 +12,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { authLogin } from "../store/auth/authSlice";
+
 
 const  Copyright = (props) => {
   return (
@@ -28,17 +31,25 @@ const  Copyright = (props) => {
     </Typography>
   );
 }
-
 const theme = createTheme();
+
+
 const Login = () => {
+  const login = useSelector(state => state.auth)
+  const dispatch = useDispatch();
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
-    console.log({
+    const inputData = {
       email: data.get("email"),
       password: data.get("password"),
-    });
+    }
+    
+    dispatch(authLogin(inputData));
+    // toast.success(login.message);
   };
 
   return (
