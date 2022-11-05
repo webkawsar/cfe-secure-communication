@@ -11,10 +11,10 @@ import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from 'react-toastify';
 import { authLogin } from "../store/auth/authSlice";
-
 
 const  Copyright = (props) => {
   return (
@@ -49,8 +49,18 @@ const Login = () => {
     }
     
     dispatch(authLogin(inputData));
-    // toast.success(login.message);
+   
   };
+
+  useEffect(() => {
+
+    if(login.isSuccess) {
+      toast.success(login.message);
+    } else if(login.isError) {
+      toast.error(login.message);
+    }
+
+  }, [login.isSuccess, login.isError])
 
   return (
     <ThemeProvider theme={theme}>
