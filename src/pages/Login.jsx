@@ -13,6 +13,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { authLogin } from "../store/auth/authSlice";
 
@@ -37,7 +38,7 @@ const theme = createTheme();
 const Login = () => {
   const {isSuccess, isError, message, isLoading} = useSelector(state => state.auth)
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -55,8 +56,12 @@ const Login = () => {
   useEffect(() => {
 
     if(isSuccess) {
+      
       toast.success(message);
-    } else if(isError) {
+      navigate('/home');
+    }
+    
+    if(isError) {
       toast.error(message);
     }
 
