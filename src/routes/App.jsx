@@ -12,11 +12,13 @@ import {
   RouterProvider
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import Dashboard from "./components/Dashboard";
-import Layout from "./components/Layout/Layout";
-import Home from "./pages/Home";
-import NotFound from "./pages/NotFound";
-import store from "./store";
+import Dashboard from "../components/Dashboard";
+import Layout from "../components/Layout/Layout";
+import Home from "../pages/Home";
+import Login from "../pages/Login";
+import NotFound from "../pages/NotFound";
+import store from "../store";
+import PrivateRoute from "./PrivateRoute";
 
 
 
@@ -27,10 +29,9 @@ const router = createBrowserRouter(
         <Route index element={<Home />} />
         <Route path="/home" element={<Home />} />
 
-        <Route path="/dashboard">
-          <Route index element={<Dashboard />} />
-        </Route>
+        <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
       </Route>
+      <Route path="/login" element={<Login />}/>
       <Route path="*" element={<NotFound />} />
     </Route>
   )

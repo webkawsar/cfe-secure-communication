@@ -14,10 +14,10 @@ import Typography from "@mui/material/Typography";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { authLogin } from "../store/auth/authSlice";
 
-const  Copyright = (props) => {
+const Copyright = (props) => {
   return (
     <Typography
       variant="body2"
@@ -29,14 +29,16 @@ const  Copyright = (props) => {
       <Link color="inherit" href="https://facebook.com/webkawsar">
         Kawsar Ahmed
       </Link>{" "}
+      @ {new Date().getFullYear()}
     </Typography>
   );
-}
+};
 const theme = createTheme();
 
-
 const Login = () => {
-  const {isSuccess, isError, message, isLoading} = useSelector(state => state.auth)
+  const { isSuccess, isError, message, isLoading, user, token } = useSelector(
+    (state) => state.auth
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -47,25 +49,25 @@ const Login = () => {
     const inputData = {
       email: data.get("email"),
       password: data.get("password"),
-    }
-    
+    };
+
     dispatch(authLogin(inputData));
-   
   };
 
   useEffect(() => {
+    if (isSuccess) {
+      // set user to local storage
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("token", token);
 
-    if(isSuccess) {
-      
       toast.success(message);
-      navigate('/home');
+      navigate("/dashboard");
     }
-    
-    if(isError) {
+
+    if (isError) {
       toast.error(message);
     }
-
-  }, [isSuccess, isError])
+  }, [isSuccess, isError]);
 
   return (
     <ThemeProvider theme={theme}>
