@@ -12,6 +12,7 @@ import {
   RouterProvider
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import '../App.css';
 import Dashboard from "../components/Dashboard";
 import Layout from "../components/Layout/Layout";
 import Home from "../pages/Home";
