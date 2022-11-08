@@ -18,9 +18,9 @@ import Layout from "../components/Layout/Layout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
+import PlayGround from '../pages/PlayGround';
 import store from "../store";
 import PrivateRoute from "./PrivateRoute";
-
 
 
 const router = createBrowserRouter(
@@ -29,6 +29,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/play" element={<PlayGround />} />
 
         <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
       </Route>
