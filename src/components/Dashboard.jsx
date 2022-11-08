@@ -1,14 +1,10 @@
-import AssignmentIcon from "@mui/icons-material/Assignment";
-import BarChartIcon from "@mui/icons-material/BarChart";
+import ChatIcon from '@mui/icons-material/Chat';
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import LayersIcon from "@mui/icons-material/Layers";
 import Logout from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
-import PeopleIcon from "@mui/icons-material/People";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Tooltip } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
 import Avatar from "@mui/material/Avatar";
@@ -23,7 +19,6 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import ListSubheader from "@mui/material/ListSubheader";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { createTheme, styled, ThemeProvider } from "@mui/material/styles";
@@ -32,7 +27,6 @@ import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
 import Footer from "./Footer";
 import Table from "./UserTable";
-
 
 
 const drawerWidth = 240;
@@ -162,6 +156,7 @@ function DashboardContent() {
             </IconButton>
           </Toolbar>
           <Divider />
+          
           <List component="nav">
             <ListItemButton>
               <ListItemIcon>
@@ -169,56 +164,15 @@ function DashboardContent() {
               </ListItemIcon>
               <ListItemText primary="Dashboard" />
             </ListItemButton>
+
             <ListItemButton>
               <ListItemIcon>
-                <ShoppingCartIcon />
+                <ChatIcon />
               </ListItemIcon>
-              <ListItemText primary="Orders" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
-                <PeopleIcon />
-              </ListItemIcon>
-              <ListItemText primary="Customers" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
-                <BarChartIcon />
-              </ListItemIcon>
-              <ListItemText primary="Reports" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
-                <LayersIcon />
-              </ListItemIcon>
-              <ListItemText primary="Integrations" />
-            </ListItemButton>
-            <Divider sx={{ my: 1 }} />
-            <ListSubheader component="div" inset>
-              Saved reports
-            </ListSubheader>
-            <ListItemButton>
-              <ListItemIcon>
-                <AssignmentIcon />
-              </ListItemIcon>
-              <ListItemText primary="Current month" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
-                <AssignmentIcon />
-              </ListItemIcon>
-              <ListItemText primary="Last quarter" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
-                <AssignmentIcon />
-              </ListItemIcon>
-              <ListItemText primary="Year-end sale" />
+              <ListItemText primary="Messenger" />
             </ListItemButton>
           </List>
         </Drawer>
-
-        {/* menu */}
         <Menu
           anchorEl={anchorEl}
           id="account-menu"
