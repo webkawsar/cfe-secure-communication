@@ -26,13 +26,13 @@ import PrivateRoute from "./PrivateRoute";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/play" element={<PlayGround />} />
-
+      <Route path="/" element={<PrivateRoute><Layout /></PrivateRoute>}>
+        <Route index element={<PrivateRoute><Home /></PrivateRoute>} />
+        <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
         <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
       </Route>
+      
+      <Route path="/play" element={<PlayGround />} />
       <Route path="/login" element={<Login />}/>
       <Route path="*" element={<NotFound />} />
     </Route>
