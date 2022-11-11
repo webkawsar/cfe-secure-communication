@@ -20,7 +20,7 @@ import { styled, useTheme } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -164,22 +164,23 @@ const Layout = ({ children }) => {
           </IconButton>
         </DrawerHeader>
         <Divider />
+
         <List component="nav">
-          <ListItemButton>
+          <ListItemButton component={Link} to="/dashboard">
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
           </ListItemButton>
 
-          <ListItemButton>
+          <ListItemButton component={Link} to="/new">
             <ListItemIcon>
               <PersonAddAlt1Icon />
             </ListItemIcon>
             <ListItemText primary="Add member" />
           </ListItemButton>
 
-          <ListItemButton>
+          <ListItemButton component={Link} to="/messenger">
             <ListItemIcon>
               <ChatIcon />
             </ListItemIcon>

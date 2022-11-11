@@ -13,8 +13,10 @@ import {
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import '../App.css';
+import AddMember from "../components/AddMember";
 import Dashboard from "../components/Dashboard";
 import Layout from "../components/Layout/Layout";
+import Messenger from "../components/Messenger";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
@@ -30,6 +32,8 @@ const router = createBrowserRouter(
         <Route index element={<PrivateRoute><Home /></PrivateRoute>} />
         <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
         <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+        <Route path="/new" element={<PrivateRoute><AddMember /></PrivateRoute>} />
+        <Route path="/messenger" element={<PrivateRoute><Messenger /></PrivateRoute>} />
       </Route>
       
       <Route path="/play" element={<PlayGround />} />
