@@ -16,7 +16,7 @@ const initialState = {
 export const authLogin = createAsyncThunk('auth/login', async (data, thunkApi) => {
     try {
 
-        const response = await axios.post('http://localhost:1337/api/auth/local', {
+        const response = await axios.post('https://cfe-secure-communication-backend-production.up.railway.app/api/auth/local', {
             identifier: data.email,
             password: data.password,
         });

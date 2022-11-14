@@ -20,6 +20,7 @@ import { styled, useTheme } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, Outlet } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -90,6 +91,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const Layout = ({ children }) => {
+  const { isAdmin } = useSelector((state) => state.auth.user);
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -136,7 +138,7 @@ const Layout = ({ children }) => {
             noWrap
             sx={{ flexGrow: 1 }}
           >
-            Dashboard
+            Secure Communication
           </Typography>
           <Tooltip title="Account settings">
             <IconButton
@@ -173,12 +175,14 @@ const Layout = ({ children }) => {
             <ListItemText primary="Dashboard" />
           </ListItemButton>
 
-          <ListItemButton component={Link} to="/new">
-            <ListItemIcon>
-              <PersonAddAlt1Icon />
-            </ListItemIcon>
-            <ListItemText primary="Add member" />
-          </ListItemButton>
+          {isAdmin && (
+            <ListItemButton component={Link} to="/new">
+              <ListItemIcon>
+                <PersonAddAlt1Icon />
+              </ListItemIcon>
+              <ListItemText primary="Add member" />
+            </ListItemButton>
+          )}
 
           <ListItemButton component={Link} to="/messenger">
             <ListItemIcon>
