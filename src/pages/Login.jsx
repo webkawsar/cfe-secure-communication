@@ -55,18 +55,26 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (isSuccess) {
+    
+    if (isSuccess && user?.confirmed) {
+      
       // set user to local storage
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("token", token);
 
       toast.success(message);
       navigate("/dashboard");
+      
+    } else if(isSuccess && !user?.confirmed) {
+
+      toast.error('Your account is not confirmed by email');
     }
 
     if (isError) {
+
       toast.error(message);
     }
+
   }, [isSuccess, isError]);
 
   return (

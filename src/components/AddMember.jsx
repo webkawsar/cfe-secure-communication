@@ -13,7 +13,7 @@ const AddMember = () => {
   const handleSubmit = (event) => {
 
     event.preventDefault();
-
+    
     const data = new FormData(event.currentTarget);
     const inputData = {
       firstName: data.get("firstName"),
@@ -27,7 +27,7 @@ const AddMember = () => {
   return (
     <Box>
       <Paper sx={{ padding: "20px" }}>
-        <Box component="form"  onSubmit={handleSubmit}>
+        <Box component="form" onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <TextField
