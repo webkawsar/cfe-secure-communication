@@ -3,6 +3,7 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
+import axios from "axios";
 import React from "react";
 import { Provider } from "react-redux";
 import {
@@ -23,6 +24,9 @@ import NotFound from "../pages/NotFound";
 import PlayGround from '../pages/PlayGround';
 import store from "../store";
 import PrivateRoute from "./PrivateRoute";
+
+const isProduction = import.meta.env.PROD;
+axios.defaults.baseURL = isProduction ? import.meta.env.VITE_PRODUCTION_URL : import.meta.env.VITE_DEVELOPMENT_URL
 
 
 const router = createBrowserRouter(

@@ -10,15 +10,29 @@ import {
 import React from "react";
 
 const AddMember = () => {
+  const handleSubmit = (event) => {
+
+    event.preventDefault();
+
+    const data = new FormData(event.currentTarget);
+    const inputData = {
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
+      email: data.get("email"),
+      token: data.get("token"),
+    };
+    console.log(inputData, 'inputData')
+    
+  }
   return (
     <Box>
       <Paper sx={{ padding: "20px" }}>
-        <Box component="form">
+        <Box component="form"  onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <TextField
                 fullWidth
-                id="firstName"
+                name="firstName"
                 label="First name"
                 variant="outlined"
                 helperText="Some important first name"
@@ -27,7 +41,7 @@ const AddMember = () => {
             <Grid item xs={6}>
               <TextField
                 fullWidth
-                id="lastName"
+                name="lastName"
                 label="Last name"
                 variant="outlined"
                 helperText="Some important last name"
@@ -36,7 +50,7 @@ const AddMember = () => {
             <Grid item xs={6}>
               <TextField
                 fullWidth
-                id="email"
+                name="email"
                 label="Email"
                 type="email"
                 variant="outlined"
@@ -46,7 +60,7 @@ const AddMember = () => {
             <Grid item xs={6}>
               <TextField
                 fullWidth
-                id="token"
+                name="token"
                 label="Token"
                 variant="outlined"
                 helperText="Some important token"
@@ -58,7 +72,8 @@ const AddMember = () => {
                 control={<Checkbox defaultChecked />}
                 label="Send Activation Email"
               />
-              <Button variant="outlined">Save</Button>
+              
+              <Button type="submit" variant="outlined">Save</Button>
             </Grid>
           </Grid>
         </Box>
