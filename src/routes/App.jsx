@@ -25,8 +25,13 @@ import PlayGround from '../pages/PlayGround';
 import store from "../store";
 import PrivateRoute from "./PrivateRoute";
 
+
+const token = localStorage.getItem('token');
 const isProduction = import.meta.env.PROD;
-axios.defaults.baseURL = isProduction ? import.meta.env.VITE_PRODUCTION_URL : import.meta.env.VITE_DEVELOPMENT_URL
+
+axios.defaults.baseURL = isProduction ? import.meta.env.VITE_PRODUCTION_URL : import.meta.env.VITE_DEVELOPMENT_URL;
+axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
 
 
 const router = createBrowserRouter(

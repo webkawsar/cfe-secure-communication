@@ -7,9 +7,17 @@ import {
   Paper,
   TextField
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { inviteUser } from "../store/auth/authSlice";
 
 const AddMember = () => {
+  const { isSuccess, isError, message, isLoading,  } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
+
   const handleSubmit = (event) => {
 
     event.preventDefault();
@@ -21,9 +29,25 @@ const AddMember = () => {
       email: data.get("email"),
       token: data.get("token"),
     };
-    console.log(inputData, 'inputData')
-    
+    // console.log(inputData, 'inputData')
+    dispatch(inviteUser(inputData));
   }
+
+  useEffect(() => {
+    
+    if (isSuccess) {
+      
+      toast.success(message);
+      
+    }
+
+    if (isError) {
+
+      toast.error(message);
+    }
+
+  }, [isSuccess, isError]);
+  
   return (
     <Box>
       <Paper sx={{ padding: "20px" }}>
