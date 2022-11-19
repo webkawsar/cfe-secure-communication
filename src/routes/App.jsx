@@ -16,6 +16,7 @@ import { ToastContainer } from "react-toastify";
 import '../App.css';
 import AddMember from "../components/AddMember";
 import Dashboard from "../components/Dashboard";
+import InvitesUser from "../components/InvitesUser";
 import Layout from "../components/Layout/Layout";
 import Messenger from "../components/Messenger";
 import Home from "../pages/Home";
@@ -42,6 +43,7 @@ const router = createBrowserRouter(
         <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
         <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
         <Route path="/new" element={<PrivateRoute><AddMember /></PrivateRoute>} />
+        <Route path="/invites" element={<PrivateRoute><InvitesUser /></PrivateRoute>} />
         <Route path="/messenger" element={<PrivateRoute><Messenger /></PrivateRoute>} />
       </Route>
       

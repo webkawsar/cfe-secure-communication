@@ -3,6 +3,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import DehazeIcon from '@mui/icons-material/Dehaze';
 import MenuIcon from "@mui/icons-material/Menu";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import { Avatar, Menu, MenuItem, Tooltip } from "@mui/material";
@@ -22,6 +23,7 @@ import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, Outlet } from "react-router-dom";
+
 
 const drawerWidth = 240;
 
@@ -93,7 +95,7 @@ const Drawer = styled(MuiDrawer, {
 const Layout = ({ children }) => {
   const { isAdmin } = useSelector((state) => state.auth.user);
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const menuOpen = Boolean(anchorEl);
 
@@ -176,12 +178,22 @@ const Layout = ({ children }) => {
           </ListItemButton>
 
           {isAdmin && (
-            <ListItemButton component={Link} to="/new">
+            <>
+              <ListItemButton component={Link} to="/new">
               <ListItemIcon>
                 <PersonAddAlt1Icon />
               </ListItemIcon>
               <ListItemText primary="Add member" />
             </ListItemButton>
+
+            <ListItemButton component={Link} to="/invites">
+              <ListItemIcon>
+                <DehazeIcon />
+              </ListItemIcon>
+              <ListItemText primary="Invited User" />
+            </ListItemButton>
+            </>
+
           )}
 
           <ListItemButton component={Link} to="/messenger">

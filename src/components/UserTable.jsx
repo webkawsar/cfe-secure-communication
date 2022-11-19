@@ -1,8 +1,15 @@
 import {
-  Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow
+  Box,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow
 } from "@mui/material";
 import React, { useState } from "react";
-
 
 const createData = (name, calories, fat, carbs, protein) => {
   return {
@@ -19,40 +26,7 @@ const rows = [
   createData("Donut", 452, 25.0, 51, 4.9),
 ];
 
-const headCells = [
-  {
-    id: 1,
-    numeric: false,
-    disablePadding: false,
-    label: "Name",
-  },
-  {
-    id: 2,
-    numeric: true,
-    disablePadding: false,
-    label: "Username",
-  },
-  {
-    id: 3,
-    numeric: true,
-    disablePadding: false,
-    label: "Email",
-  },
-  {
-    id: 4,
-    numeric: true,
-    disablePadding: false,
-    label: "Activated",
-  },
-  {
-    id: 5,
-    numeric: true,
-    disablePadding: false,
-    label: "Actions",
-  },
-];
-
-const UserTable = () => {
+const UserTable = ({ headCells, users }) => {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("calories");
   const [selected, setSelected] = useState([]);
@@ -89,15 +63,20 @@ const UserTable = () => {
             </TableHead>
 
             <TableBody>
-              <TableRow hover>
-                <TableCell component="th" scope="row" padding="normal">
-                  Kawsar
-                </TableCell>
-                <TableCell align="right">web.kawsarahmed@gmail.com</TableCell>
-                <TableCell align="right">abc</TableCell>
-                <TableCell align="right">01715103606</TableCell>
-                <TableCell align="right">MoulviBazar</TableCell>
-              </TableRow>
+              {users.map((user) => {
+                const { firstName, lastName, email, token, isActivate } =
+                  user.attributes;
+
+                return (
+                  <TableRow hover key={user.id}>
+                    <TableCell>{firstName}</TableCell>
+                    <TableCell>{lastName}</TableCell>
+                    <TableCell>{email}</TableCell>
+                    <TableCell>{token}</TableCell>
+                    <TableCell>{isActivate ? "true" : "false"}</TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </TableContainer>
@@ -112,7 +91,6 @@ const UserTable = () => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      
     </Box>
   );
 };
