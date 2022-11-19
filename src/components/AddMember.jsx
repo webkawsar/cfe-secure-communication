@@ -9,14 +9,16 @@ import {
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { inviteUser } from "../store/auth/authSlice";
+import { inviteUser } from "../store/data/inviteUserSlice";
 
 const AddMember = () => {
   const { isSuccess, isError, message, isLoading,  } = useSelector(
-    (state) => state.auth
+    (state) => state.invitesUser
   );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
 
@@ -27,7 +29,7 @@ const AddMember = () => {
       firstName: data.get("firstName"),
       lastName: data.get("lastName"),
       email: data.get("email"),
-      token: data.get("token"),
+      token: JSON.parse(data.get("token")),
     };
     // console.log(inputData, 'inputData')
     dispatch(inviteUser(inputData));
@@ -38,7 +40,7 @@ const AddMember = () => {
     if (isSuccess) {
       
       toast.success(message);
-      
+      navigate('/invites');
     }
 
     if (isError) {
@@ -97,7 +99,7 @@ const AddMember = () => {
                 label="Send Activation Email"
               />
               
-              <Button type="submit" variant="outlined">Save</Button>
+              <Button type="submit" variant="outlined" disabled={isLoading}>Save</Button>
             </Grid>
           </Grid>
         </Box>

@@ -1,3 +1,4 @@
+import UserTable from "./UserTable";
 
 const Dashboard = () => {
   const headCells = [
@@ -34,7 +35,7 @@ const Dashboard = () => {
   ];
   
   return (
-    <div>Dashboard</div>
+    <UserTable headCells={headCells} users={[]}/>
   )
 }
 
