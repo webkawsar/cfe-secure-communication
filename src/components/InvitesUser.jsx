@@ -38,16 +38,16 @@ const headCells = [
     },
   ];
 const InvitesUser = () => {
-  const { isError, isSuccess, isLoading, message, users } = useSelector(
+  const { getIsError, getIsSuccess, getIsLoading, getMessage, users } = useSelector(
     (state) => state.invitesUser
   );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isError) {
-      toast.error(message);
+    if (getIsError) {
+      toast.error(getMessage);
     }
-  }, [isError]);
+  }, [getIsError]);
 
   useEffect(() => {
     dispatch(getInvitesUser());
@@ -55,9 +55,9 @@ const InvitesUser = () => {
 
   return (
     <>
-      {isLoading && <Loader />}
+      {getIsLoading && <Loader />}
 
-      {isSuccess && <UserTable headCells={headCells} users={users} />}
+      {getIsSuccess && <UserTable headCells={headCells} users={users} />}
     </>
   );
 };

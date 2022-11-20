@@ -3,11 +3,15 @@ import axios from 'axios';
 
 
 const initialState = {
-    users: [],
     isError: false,
     isSuccess: false,
     isLoading: false,
     message: '',
+    users: [],
+    getIsLoading: false,
+    getIsError: false,
+    getIsSuccess: false,
+    getMessage: ''
 }
 
 export const inviteUser = createAsyncThunk('auth/invite', async (data, thunkApi) => {
@@ -46,27 +50,7 @@ const inviteUserSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
 
-        builder.addCase(getInvitesUser.pending, (state, action) => {
-
-            state.isLoading = true
-        })
-        .addCase(getInvitesUser.fulfilled, (state, action) => {
-            
-            const {data} = action.payload;
-            state.users = data
-            state.isError = false
-            state.isSuccess = true
-            state.isLoading = false
-
-        })
-        .addCase(getInvitesUser.rejected, (state, action) => {
-
-            state.isError = true
-            state.isSuccess = false
-            state.isLoading = false
-            state.message = action.payload
-        })
-        .addCase(inviteUser.pending, (state, action) => {
+        builder.addCase(inviteUser.pending, (state, action) => {
             
             state.isLoading = true
         })
@@ -83,6 +67,26 @@ const inviteUserSlice = createSlice({
             state.isSuccess = false
             state.isLoading = false
             state.message = action.payload
+        })
+        .addCase(getInvitesUser.pending, (state, action) => {
+
+            state.getIsLoading = true
+        })
+        .addCase(getInvitesUser.fulfilled, (state, action) => {
+            
+            const {data} = action.payload;
+            state.users = data
+            state.getIsError = false
+            state.getIsSuccess = true
+            state.getIsLoading = false
+
+        })
+        .addCase(getInvitesUser.rejected, (state, action) => {
+
+            state.getIsError = true
+            state.getIsSuccess = false
+            state.getIsLoading = false
+            state.getMessage = action.payload
         })
        
     }
