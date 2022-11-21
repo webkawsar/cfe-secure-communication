@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from 'axios';
+import axiosPrivateInstance from "../../axios";
 
+
+
+const token = localStorage.getItem('token');
 
 const initialState = {
     isError: false,
@@ -17,7 +20,7 @@ const initialState = {
 export const inviteUser = createAsyncThunk('auth/invite', async (data, thunkApi) => {
     try {
         
-        const response = await axios.post('/invites', {
+        const response = await axiosPrivateInstance(token).post('/invites', {
             data
         });
         const responseData = response.data;
@@ -33,7 +36,7 @@ export const inviteUser = createAsyncThunk('auth/invite', async (data, thunkApi)
 export const getInvitesUser = createAsyncThunk('invite/getAll', async (data, thunkApi) => {
     try {
 
-        const response = await axios.get('/invites');
+        const response = await axiosPrivateInstance(token).get('/invites');
         const responseData = response.data;
         return responseData;
         

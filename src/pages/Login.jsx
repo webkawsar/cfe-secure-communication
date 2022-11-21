@@ -56,7 +56,7 @@ const Login = () => {
 
   useEffect(() => {
     
-    if (isSuccess && user?.confirmed) {
+    if (isSuccess) {
       
       // set user to local storage
       localStorage.setItem("user", JSON.stringify(user));
@@ -65,10 +65,7 @@ const Login = () => {
       toast.success(message);
       navigate("/dashboard");
       
-    } else if(isSuccess && !user?.confirmed) {
-
-      toast.error('Your account is not confirmed by email');
-    }
+    } 
 
     if (isError) {
 
@@ -137,11 +134,6 @@ const Login = () => {
               <Grid item xs>
                 <Link href="#" variant="body2">
                   Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>

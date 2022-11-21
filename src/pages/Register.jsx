@@ -10,11 +10,10 @@ import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { authLogin } from "../store/auth/authSlice";
+import { authRegister } from "../store/auth/authSlice";
 
 const Copyright = (props) => {
   return (
@@ -35,7 +34,7 @@ const Copyright = (props) => {
 const theme = createTheme();
 
 const Register = () => {
-  const { isSuccess, isError, message, isLoading, user, token } = useSelector(
+  const { isSuccess, isError, message, isLoading } = useSelector(
     (state) => state.auth
   );
   const dispatch = useDispatch();
@@ -46,36 +45,41 @@ const Register = () => {
 
     const data = new FormData(event.currentTarget);
     const inputData = {
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
       email: data.get("email"),
       password: data.get("password"),
+      token: data.get("token"),
     };
 
-    dispatch(authLogin(inputData));
+    dispatch(authRegister(inputData));
   };
 
-  useEffect(() => {
+  // useEffect(() => {
     
-    if (isSuccess && user?.confirmed) {
+  //   if (isSuccess && user?.confirmed) {
       
-      // set user to local storage
-      localStorage.setItem("user", JSON.stringify(user));
-      localStorage.setItem("token", token);
+  //     // set user to local storage
+  //     localStorage.setItem("user", JSON.stringify(user));
+  //     localStorage.setItem("token", token);
 
-      toast.success(message);
-      navigate("/dashboard");
+  //     toast.success(message);
+  //     navigate("/dashboard");
       
-    } else if(isSuccess && !user?.confirmed) {
+  //   } else if(isSuccess && !user?.confirmed) {
 
-      toast.error('Your account is not confirmed by email');
-    }
+  //     toast.error('Your account is not confirmed by email');
+  //   }
 
-    if (isError) {
+  //   if (isError) {
 
-      toast.error(message);
-    }
+  //     toast.error(message);
+  //   }
 
-  }, [isSuccess, isError]);
+  // }, [isSuccess, isError]);
 
+
+  
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -92,7 +96,7 @@ const Register = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5" disabled={isLoading}>
-            Sign Up
+            Sign up
           </Typography>
           <Box
             component="form"
@@ -171,7 +175,7 @@ const Register = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Sign Up
             </Button>
             <Grid container>
               <Grid item xs>

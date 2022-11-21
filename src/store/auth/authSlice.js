@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios';
-
+import { v4 as uuidv4 } from 'uuid';
 
 const user = JSON.parse(localStorage.getItem('user')) || null;
 const token = localStorage.getItem('token') || '';
@@ -30,11 +30,11 @@ export const authLogin = createAsyncThunk('auth/login', async (data, thunkApi) =
     }
 })
 
-export const registerUser = createAsyncThunk('auth/register', async (data, thunkApi) => {
+export const authRegister = createAsyncThunk('auth/register', async (data, thunkApi) => {
     try {
 
         const response = await axios.post('/auth/local/register', {
-            username: data.email,
+            username: uuidv4(),
             email: data.email,
             password: data.password,
         });
@@ -77,17 +77,17 @@ const authSlice = createSlice({
             state.isLoading = false
             state.message = action.payload
         })
-        .addCase(registerUser.pending, (state, action) => {
+        .addCase(authRegister.pending, (state, action) => {
             state.isLoading = true
         })
-        .addCase(registerUser.fulfilled, (state, action) => {
+        .addCase(authRegister.fulfilled, (state, action) => {
 
             state.isError = false
             state.isSuccess = true
             state.isLoading = false
             state.message = 'Registration successful!'
         })
-        .addCase(registerUser.rejected, (state, action) => {
+        .addCase(authRegister.rejected, (state, action) => {
             
             state.isError = true
             state.isSuccess = false
