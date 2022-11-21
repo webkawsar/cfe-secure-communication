@@ -23,6 +23,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
 import PlayGround from '../pages/PlayGround';
+import Register from "../pages/Register";
 import store from "../store";
 import PrivateRoute from "./PrivateRoute";
 
@@ -49,6 +50,7 @@ const router = createBrowserRouter(
       
       <Route path="/play" element={<PlayGround />} />
       <Route path="/login" element={<Login />}/>
+      <Route path="/register" element={<Register />}/>
       <Route path="*" element={<NotFound />} />
     </Route>
   )

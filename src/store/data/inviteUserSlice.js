@@ -47,7 +47,15 @@ export const getInvitesUser = createAsyncThunk('invite/getAll', async (data, thu
 const inviteUserSlice = createSlice({
     name: 'getInvitesUser',
     initialState,
-    reducers: {},
+    reducers: {
+        reset(state) {
+            
+            state.isError = false
+            state.isSuccess = false
+            state.isLoading = false
+            state.message = ''
+        }
+    },
     extraReducers: (builder) => {
 
         builder.addCase(inviteUser.pending, (state, action) => {
@@ -92,5 +100,6 @@ const inviteUserSlice = createSlice({
     }
 })
 
+export const {reset} = inviteUserSlice.actions;
 
 export default inviteUserSlice.reducer;

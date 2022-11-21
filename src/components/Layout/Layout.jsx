@@ -115,6 +115,11 @@ const Layout = ({ children }) => {
     setAnchorEl(null);
   };
 
+  const handleLogoutClick = () => {
+    localStorage.removeItem('user')
+    localStorage.removeItem('token')
+  }
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -260,7 +265,7 @@ const Layout = ({ children }) => {
           Settings
         </MenuItem>
 
-        <MenuItem>
+        <MenuItem onClick={handleLogoutClick}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

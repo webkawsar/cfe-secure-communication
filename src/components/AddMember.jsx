@@ -11,10 +11,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { inviteUser } from "../store/data/inviteUserSlice";
+import { inviteUser, reset } from "../store/data/inviteUserSlice";
 
 const AddMember = () => {
-  const { isSuccess, isError, message, isLoading,  } = useSelector(
+  const { isSuccess, isError, message, isLoading } = useSelector(
     (state) => state.invitesUser
   );
   const dispatch = useDispatch();
@@ -40,6 +40,7 @@ const AddMember = () => {
     if (isSuccess) {
       
       toast.success(message);
+      dispatch(reset());
       navigate('/invites');
     }
 
