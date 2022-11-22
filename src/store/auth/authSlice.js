@@ -37,6 +37,7 @@ export const authRegister = createAsyncThunk('auth/register', async (data, thunk
             username: uuidv4(),
             email: data.email,
             password: data.password,
+            token: data.token
         });
         const responseData = response.data;
         return responseData;

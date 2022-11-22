@@ -10,9 +10,10 @@ import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { authRegister } from "../store/auth/authSlice";
 
 const Copyright = (props) => {
@@ -49,34 +50,27 @@ const Register = () => {
       lastName: data.get("lastName"),
       email: data.get("email"),
       password: data.get("password"),
-      token: data.get("token"),
+      token: JSON.parse(data.get("token")),
     };
-
+   
     dispatch(authRegister(inputData));
   };
 
-  // useEffect(() => {
+  useEffect(() => {
     
-  //   if (isSuccess && user?.confirmed) {
+    if (isSuccess) {
       
-  //     // set user to local storage
-  //     localStorage.setItem("user", JSON.stringify(user));
-  //     localStorage.setItem("token", token);
-
-  //     toast.success(message);
-  //     navigate("/dashboard");
+      toast.success(message);
+      // navigate('/')
       
-  //   } else if(isSuccess && !user?.confirmed) {
+    }
 
-  //     toast.error('Your account is not confirmed by email');
-  //   }
+    if (isError) {
 
-  //   if (isError) {
+      toast.error(message);
+    }
 
-  //     toast.error(message);
-  //   }
-
-  // }, [isSuccess, isError]);
+  }, [isSuccess, isError]);
 
 
   
