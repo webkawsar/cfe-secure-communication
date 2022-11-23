@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
-import { AuthContext } from '../context/Auth.context';
 
 
 
@@ -8,8 +8,8 @@ import { AuthContext } from '../context/Auth.context';
 const PublicRoute = ({children}) => {
     
     const location = useLocation();
-    const {user} = useContext(AuthContext);
-    const loadedComponent = user ? <Navigate to={location?.state?.from ? location?.state?.from : '/contacts'} /> : children;
+    const {user} =  useSelector(state => state.auth);
+    const loadedComponent = user ? <Navigate to={location?.state?.from ? location?.state?.from : '/dashboard'} /> : children;
 
     return (
         <>

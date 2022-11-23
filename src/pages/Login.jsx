@@ -61,6 +61,7 @@ const Login = () => {
       // set user to local storage
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("token", token);
+      console.log('Login success')
 
       toast.success(message);
       navigate("/dashboard");
