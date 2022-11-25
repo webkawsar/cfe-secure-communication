@@ -25,6 +25,7 @@ import PlayGround from '../pages/PlayGround';
 import Register from "../pages/Register";
 import store from "../store";
 import PrivateRoute from "./PrivateRoute";
+import Root from "./Root";
 
 
 
@@ -34,19 +35,22 @@ import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route>
+    <Route
+      path="/"
+      element={<Root />}
+    >
       <Route path="/" element={<PrivateRoute><Layout /></PrivateRoute>}>
         <Route index element={<PrivateRoute><Home /></PrivateRoute>} />
-        <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
-        <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-        <Route path="/new" element={<PrivateRoute><AddMember /></PrivateRoute>} />
-        <Route path="/invites" element={<PrivateRoute><InvitesUser /></PrivateRoute>} />
-        <Route path="/messenger" element={<PrivateRoute><Messenger /></PrivateRoute>} />
+        <Route path="home" element={<PrivateRoute><Home /></PrivateRoute>} />
+        <Route path="dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+        <Route path="new" element={<PrivateRoute><AddMember /></PrivateRoute>} />
+        <Route path="invites" element={<PrivateRoute><InvitesUser /></PrivateRoute>} />
+        <Route path="messenger" element={<PrivateRoute><Messenger /></PrivateRoute>} />
       </Route>
       
-      <Route path="/play" element={<PlayGround />} />
-      <Route path="/login" element={<Login />}/>
-      <Route path="/register" element={<Register />}/>
+      <Route path="play" element={<PlayGround />} />
+      <Route path="login" element={<Login />}/>
+      <Route path="register" element={<Register />}/>
       <Route path="*" element={<NotFound />} />
     </Route>
   )

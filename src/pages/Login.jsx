@@ -13,7 +13,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { authLogin } from "../store/auth/authSlice";
 
@@ -41,6 +41,7 @@ const Login = () => {
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -61,11 +62,9 @@ const Login = () => {
       // set user to local storage
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("token", token);
-      console.log('Login success')
 
       toast.success(message);
-      navigate("/dashboard");
-      
+      navigate(location?.state?.from ? location?.state?.from : "/dashboard");
     } 
 
     if (isError) {
