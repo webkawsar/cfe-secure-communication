@@ -65,7 +65,7 @@ const UserTable = ({ headCells, users }) => {
             <TableBody>
               {users.map((user) => {
                 const { firstName, lastName, email, token, isActivate } =
-                  user.attributes;
+                  user?.attributes;
 
                 return (
                   <TableRow hover key={user.id}>
