@@ -1,17 +1,17 @@
 import {
-  Box,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Grid,
-  Paper,
-  TextField
+    Box,
+    Button,
+    Checkbox,
+    FormControlLabel,
+    Grid,
+    Paper,
+    TextField
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { inviteUser, reset } from "../store/data/inviteUserSlice";
+import { inviteUser, reset } from "../store/invites/inviteUserSlice";
 
 const AddMember = () => {
   const { isSuccess, isError, message, isLoading } = useSelector(

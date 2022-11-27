@@ -3,8 +3,6 @@ import axiosPrivateInstance from "../../axios";
 
 
 
-const token = localStorage.getItem('token');
-
 const initialState = {
     isError: false,
     isSuccess: false,
@@ -20,7 +18,7 @@ const initialState = {
 export const inviteUser = createAsyncThunk('auth/invite', async (data, thunkApi) => {
     try {
         
-        const response = await axiosPrivateInstance(token).post('/invites', {
+        const response = await axiosPrivateInstance().post('/invites', {
             data
         });
         const responseData = response.data;
@@ -36,15 +34,16 @@ export const inviteUser = createAsyncThunk('auth/invite', async (data, thunkApi)
 export const getInvitesUser = createAsyncThunk('invite/getAll', async (data, thunkApi) => {
     try {
 
-        const response = await axiosPrivateInstance(token).get('/invites');
-        const responseData = response.data;
+        const response =  await axiosPrivateInstance().get('/invites');
+        const responseData = response?.data
         return responseData;
         
     } catch (error) {
        
-        console.log(error?.response, 'getInviteUser error')
+        console.log(error, 'getInviteUser error')
         return thunkApi.rejectWithValue(error?.response?.data?.error?.message);
     }
+    
 })
 
 const inviteUserSlice = createSlice({
@@ -86,7 +85,7 @@ const inviteUserSlice = createSlice({
         .addCase(getInvitesUser.fulfilled, (state, action) => {
             
             const {data} = action.payload;
-            state.users = data
+            state.users = data;
             state.getIsError = false
             state.getIsSuccess = true
             state.getIsLoading = false

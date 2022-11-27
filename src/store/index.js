@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./auth/authSlice";
-import inviteUserReducer from "./data/inviteUserSlice";
+import inviteUserReducer from "./invites/inviteUserSlice";
 
 
 

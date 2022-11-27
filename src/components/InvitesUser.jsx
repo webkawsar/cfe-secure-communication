@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { getInvitesUser } from "../store/data/inviteUserSlice";
+import { getInvitesUser } from "../store/invites/inviteUserSlice";
 import Loader from "./Loader";
 import UserTable from "./UserTable";
 
@@ -37,6 +37,12 @@ const headCells = [
       label: "isActivate",
     },
   ];
+
+// const loader = () => {
+  
+// }
+
+
 const InvitesUser = () => {
   const { getIsError, getIsSuccess, getIsLoading, getMessage, users } = useSelector(
     (state) => state.invitesUser
