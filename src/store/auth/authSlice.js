@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
-const user = JSON.parse(localStorage.getItem('user')) || null;
-const token = localStorage.getItem('token') || '';
+const user = JSON.parse(sessionStorage.getItem('user')) || null;
+const token = sessionStorage.getItem('token') || '';
 const initialState = {
     user,
     token,
@@ -63,6 +63,11 @@ const authSlice = createSlice({
         .addCase(authLogin.fulfilled, (state, action) => {
             
             const {jwt, user} = action.payload;
+
+            // set user to local storage
+            sessionStorage.setItem("user", JSON.stringify(user));
+            sessionStorage.setItem("token", jwt);
+
             state.user = user
             state.token = jwt
             state.isError = false

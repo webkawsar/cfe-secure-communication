@@ -188,7 +188,7 @@ const Layout = ({ children }) => {
               <ListItemIcon>
                 <PersonAddAlt1Icon />
               </ListItemIcon>
-              <ListItemText primary="Invite member" />
+              <ListItemText primary="Invite" />
             </ListItemButton>
 
             <ListItemButton component={Link} to="/invites">

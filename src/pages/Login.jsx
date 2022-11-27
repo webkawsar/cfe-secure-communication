@@ -59,10 +59,6 @@ const Login = () => {
     
     if (isSuccess) {
       
-      // set user to local storage
-      localStorage.setItem("user", JSON.stringify(user));
-      localStorage.setItem("token", token);
-
       toast.success(message);
       navigate(location?.state?.from ? location?.state?.from : "/dashboard");
     } 
