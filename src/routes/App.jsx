@@ -17,9 +17,10 @@ import Dashboard from "../components/Dashboard";
 import Invite from "../components/Invite";
 import InvitesUser from "../components/InvitesUser";
 import Layout from "../components/Layout/Layout";
-import Messenger from "../components/Messenger";
+import MessengerLayout from "../components/Layout/MessengerLayout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import Messenger from "../pages/Messenger";
 import NotFound from "../pages/NotFound";
 import PlayGround from '../pages/PlayGround';
 import Register from "../pages/Register";
@@ -45,7 +46,10 @@ const router = createBrowserRouter(
         <Route path="dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
         <Route path="new" element={<PrivateRoute><Invite /></PrivateRoute>} />
         <Route path="invites" element={<PrivateRoute><InvitesUser /></PrivateRoute>} />
-        <Route path="messenger" element={<PrivateRoute><Messenger /></PrivateRoute>} />
+      </Route>
+
+      <Route path="messenger" element={<PrivateRoute><MessengerLayout /></PrivateRoute>}>
+        <Route index element={<PrivateRoute><Messenger /></PrivateRoute>} />
       </Route>
       
       <Route path="play" element={<PlayGround />} />

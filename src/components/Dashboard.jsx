@@ -34,7 +34,7 @@ const headCells = [
     id: 4,
     numeric: false,
     disablePadding: false,
-    label: "Activated",
+    label: "isAdmin",
   },
   {
     id: 5,
