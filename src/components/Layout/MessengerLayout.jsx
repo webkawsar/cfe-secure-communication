@@ -181,7 +181,7 @@ const MessengerLayout = ({ children }) => {
             );
           })}
 
-          <ListItemButton component={Link} to="/messenger">
+          <ListItemButton component={Link} to="user/1">
             <ListItemIcon>
                 <Avatar
                     alt="Chat User"
@@ -191,7 +191,7 @@ const MessengerLayout = ({ children }) => {
             <ListItemText primary="Kawsar Ahmed" />
           </ListItemButton>
 
-          <ListItemButton component={Link} to="/messenger">
+          <ListItemButton component={Link} to="user/2">
             <ListItemIcon>
                 <Avatar
                     alt="Chat User"

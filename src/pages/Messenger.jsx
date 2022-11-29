@@ -2,7 +2,7 @@ import React from 'react'
 
 const Messenger = () => {
   return (
-    <div>Messenger Page</div>
+    <div>Messenger Index Page</div>
   )
 }
 
