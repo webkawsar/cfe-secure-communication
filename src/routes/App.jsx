@@ -17,7 +17,7 @@ import Dashboard from "../components/Dashboard";
 import Invite from "../components/Invite";
 import InvitesUser from "../components/InvitesUser";
 import Layout from "../components/Layout/Layout";
-import MessengerLayout from "../components/Layout/MessengerLayout";
+import MessengerLayout, { loader as messengerRootLoader } from "../components/Layout/MessengerLayout";
 import MessengerUser from "../components/MessengerUser";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
@@ -49,7 +49,11 @@ const router = createBrowserRouter(
         <Route path="invites" element={<PrivateRoute><InvitesUser /></PrivateRoute>} />
       </Route>
 
-      <Route path="messenger" element={<PrivateRoute><MessengerLayout /></PrivateRoute>}>
+      <Route 
+        path="messenger" 
+        element={<PrivateRoute><MessengerLayout /></PrivateRoute>} 
+        loader={messengerRootLoader}
+      >
         <Route index element={<PrivateRoute><Messenger /></PrivateRoute>} />
         <Route path='user/:userId' element={<PrivateRoute><MessengerUser /></PrivateRoute>} />
       </Route>

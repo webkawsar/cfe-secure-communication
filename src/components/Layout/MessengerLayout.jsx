@@ -1,7 +1,6 @@
 import { Logout, PersonAdd, Settings } from "@mui/icons-material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import DashboardIcon from "@mui/icons-material/Dashboard";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Avatar, Menu, MenuItem, Tooltip } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
@@ -18,7 +17,8 @@ import { styled, useTheme } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLoaderData } from "react-router-dom";
+import axiosPrivateInstance from "../../axios";
 
 const drawerWidth = 270;
 
@@ -88,7 +88,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const MessengerLayout = ({ children }) => {
-  const [users, setUsers] = useState([]);
+  const users = useLoaderData();
   const theme = useTheme();
   const [open, setOpen] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -171,27 +171,23 @@ const MessengerLayout = ({ children }) => {
 
         <List component="nav">
           {users.map((user) => {
+            
             return (
-              <ListItemButton component={Link} to="/dashboard">
+              <ListItemButton component={Link} to="user/1" key={user.id}>
                 <ListItemIcon>
-                  <DashboardIcon />
+                    <Avatar
+                        alt="Chat User"
+                        src="https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/avat-01-512.png"  
+                    />
                 </ListItemIcon>
-                <ListItemText primary="Dashboard" />
+                <ListItemText primary={user.username} />
               </ListItemButton>
             );
           })}
 
-          <ListItemButton component={Link} to="user/1">
-            <ListItemIcon>
-                <Avatar
-                    alt="Chat User"
-                    src="https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/avat-01-512.png"  
-                />
-            </ListItemIcon>
-            <ListItemText primary="Kawsar Ahmed" />
-          </ListItemButton>
+          
 
-          <ListItemButton component={Link} to="user/2">
+          {/* <ListItemButton component={Link} to="user/2">
             <ListItemIcon>
                 <Avatar
                     alt="Chat User"
@@ -199,8 +195,8 @@ const MessengerLayout = ({ children }) => {
                 />
             </ListItemIcon>
             <ListItemText primary="Mohammad Ahmed M" />
-            {/* <ListItemText primary="Invited Member List" /> */}
-          </ListItemButton>
+          </ListItemButton> */}
+
         </List>
       </Drawer>
 
@@ -276,3 +272,13 @@ const MessengerLayout = ({ children }) => {
 };
 
 export default MessengerLayout;
+
+
+
+export async function loader() {
+
+  const response = await axiosPrivateInstance().get('/users');
+  const responseData = response.data;
+  return responseData;
+
+}
