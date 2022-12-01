@@ -16,9 +16,11 @@ import ListItemText from "@mui/material/ListItemText";
 import { styled, useTheme } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import React, { useState } from "react";
-import { Link, Outlet, useLoaderData } from "react-router-dom";
-import axiosPrivateInstance from "../../axios";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Outlet } from "react-router-dom";
+import { toast } from "react-toastify";
+import { registeredUser } from "../../store/user/userSlice";
 
 const drawerWidth = 270;
 
@@ -88,11 +90,26 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const MessengerLayout = ({ children }) => {
-  const users = useLoaderData();
+  const { isError, isSuccess, isLoading, message, users } = useSelector(state => state.users);
+  const dispatch = useDispatch();
   const theme = useTheme();
   const [open, setOpen] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const menuOpen = Boolean(anchorEl);
+
+  useEffect(() => {
+
+    dispatch(registeredUser());
+
+  }, [])
+
+  useEffect(() => {
+
+    if(isError) {
+      toast.error(message);
+    }
+    
+  }, [isError])
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -111,8 +128,8 @@ const MessengerLayout = ({ children }) => {
   };
 
   const handleLogoutClick = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("token");
   };
 
   return (
@@ -173,7 +190,7 @@ const MessengerLayout = ({ children }) => {
           {users.map((user) => {
             
             return (
-              <ListItemButton component={Link} to="user/1" key={user.id}>
+              <ListItemButton component={Link} to={`user/${user.id}`} key={user.id}>
                 <ListItemIcon>
                     <Avatar
                         alt="Chat User"
@@ -184,18 +201,6 @@ const MessengerLayout = ({ children }) => {
               </ListItemButton>
             );
           })}
-
-          
-
-          {/* <ListItemButton component={Link} to="user/2">
-            <ListItemIcon>
-                <Avatar
-                    alt="Chat User"
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyz-77X11MoGE22xVjjPhbpW6lPj6I0SkcTQ&usqp=CAU"  
-                />
-            </ListItemIcon>
-            <ListItemText primary="Mohammad Ahmed M" />
-          </ListItemButton> */}
 
         </List>
       </Drawer>
@@ -272,13 +277,3 @@ const MessengerLayout = ({ children }) => {
 };
 
 export default MessengerLayout;
-
-
-
-export async function loader() {
-
-  const response = await axiosPrivateInstance().get('/users');
-  const responseData = response.data;
-  return responseData;
-
-}

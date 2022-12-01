@@ -17,8 +17,9 @@ import Dashboard from "../components/Dashboard";
 import Invite from "../components/Invite";
 import InvitesUser from "../components/InvitesUser";
 import Layout from "../components/Layout/Layout";
-import MessengerLayout, { loader as messengerRootLoader } from "../components/Layout/MessengerLayout";
-import MessengerUser from "../components/MessengerUser";
+import MessengerLayout from "../components/Layout/MessengerLayout";
+import MessengerUser, { loader as singleUserLoader } from "../components/messenger/MessengerUser";
+import UserError from "../components/messenger/UserError";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Messenger from "../pages/Messenger";
@@ -51,11 +52,15 @@ const router = createBrowserRouter(
 
       <Route 
         path="messenger" 
-        element={<PrivateRoute><MessengerLayout /></PrivateRoute>} 
-        loader={messengerRootLoader}
+        element={<PrivateRoute><MessengerLayout /></PrivateRoute>}
       >
         <Route index element={<PrivateRoute><Messenger /></PrivateRoute>} />
-        <Route path='user/:userId' element={<PrivateRoute><MessengerUser /></PrivateRoute>} />
+        <Route 
+          path='user/:userId' 
+          element={<PrivateRoute><MessengerUser /></PrivateRoute>} 
+          loader={singleUserLoader}
+          errorElement={<UserError />}
+        />
       </Route>
       
       <Route path="play" element={<PlayGround />} />
