@@ -15,7 +15,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { authLogin } from "../store/auth/authSlice";
+import { authLogin, resetLogin } from "../store/auth/authSlice";
 
 const Copyright = (props) => {
   return (
@@ -68,6 +68,8 @@ const Login = () => {
       toast.error(message);
     }
 
+    dispatch(resetLogin())
+
   }, [isSuccess, isError]);
 
   return (
@@ -102,7 +104,7 @@ const Login = () => {
               label="Email Address"
               name="email"
               autoComplete="email"
-              autoFocus
+              
             />
             <TextField
               margin="normal"

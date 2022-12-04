@@ -34,6 +34,8 @@ export const authRegister = createAsyncThunk('auth/register', async (data, thunk
     try {
 
         const response = await axios.post('/auth/local/register', {
+            firstName: data.firstName,
+            lastName: data.lastName,
             username: uuidv4(),
             email: data.email,
             password: data.password,
@@ -53,7 +55,23 @@ export const authRegister = createAsyncThunk('auth/register', async (data, thunk
 const authSlice = createSlice({
     name: 'authentication',
     initialState,
-    reducers: {},
+    reducers: {
+        
+        resetRegister(state) {
+            state.isError = false
+            state.isSuccess = false
+            state.isLoading = false
+            state.message = ''
+        },
+        resetLogin(state) {
+            state.user = null
+            state.token = ''
+            state.isError = false
+            state.isSuccess = false
+            state.isLoading = false
+            state.message = ''
+        }
+    },
     extraReducers: (builder) => {
 
         builder.addCase(authLogin.pending, (state, action) => {
@@ -104,5 +122,6 @@ const authSlice = createSlice({
     }
 })
 
+export const {resetRegister, resetLogin} = authSlice.actions;
 
 export default authSlice.reducer;

@@ -14,7 +14,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { authRegister } from "../store/auth/authSlice";
+import { authRegister, resetRegister } from "../store/auth/authSlice";
 
 const Copyright = (props) => {
   return (
@@ -50,7 +50,7 @@ const Register = () => {
       lastName: data.get("lastName"),
       email: data.get("email"),
       password: data.get("password"),
-      token: JSON.parse(data.get("token")),
+      token: data.get("token"),
     };
    
     dispatch(authRegister(inputData));
@@ -62,13 +62,15 @@ const Register = () => {
       
       toast.success(message);
       // navigate('/')
-      
     }
 
     if (isError) {
 
       toast.error(message);
     }
+
+    // reset auth register state
+    dispatch(resetRegister());
 
   }, [isSuccess, isError]);
 
@@ -98,67 +100,82 @@ const Register = () => {
             noValidate
             sx={{ mt: 1 }}
           >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="firstName"
-              label="First name"
-              name="firstName"
-              autoComplete="firstName"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="lastName"
-              label="Last name"
-              name="lastName"
-              autoComplete="lastName"
-              
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="confirmPassword"
-              label="Confirm password"
-              type="password"
-              id="confirmPassword"
-              
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="token"
-              label="Token"
-              name="token"
-              type='number'
-              autoComplete="token"
-              
-            />
+            <Grid container>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  margin="normal"
+                  required
+                  id="firstName"
+                  label="First name"
+                  name="firstName"
+                  autoComplete="firstName"
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  margin="normal"
+                  required
+                  id="lastName"
+                  label="Last name"
+                  name="lastName"
+                  autoComplete="lastName"
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="confirmPassword"
+                  label="Confirm password"
+                  type="password"
+                  id="confirmPassword"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="token"
+                  label="Token"
+                  name="token"
+                  type='number'
+                  autoComplete="token"
+                />
+              </Grid>
+              {/* <Grid item xs={12}>
+                <FormControlLabel
+                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  label="I want to receive inspiration, marketing promotions and updates via email."
+                />
+              </Grid> */}
+            </Grid>
+
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
