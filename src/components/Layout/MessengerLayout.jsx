@@ -190,7 +190,7 @@ const MessengerLayout = ({ children }) => {
           {users.map((user) => {
             
             return (
-              <ListItemButton component={Link} to={`user/${user.username}`} key={user.id}>
+              <ListItemButton component={Link} to={`user/${user.id}`} key={user.id}>
                 <ListItemIcon>
                     <Avatar
                         alt="Chat User"

@@ -61,20 +61,28 @@ const MessengerUser = () => {
 
 
         {
-          messages.map(message => {
-            console.log(message, 'message');
+          messages.length ?
+          messages.map((message, index, array) => {
+            // console.log(message, 'message');
+            // console.log(index, 'index');
+            // console.log(array, 'array');
+            const nextMsg = array[index+1];
+            const hasReceiverNextMsg = nextMsg?.receiver?.username === data?.username;
+            const isShowReceiverInfo = message.receiver.username === data.username;
+            const showReceiverInfoNextTime = message?.receiver?.username === data?.username ? hasReceiverNextMsg : false;
             return (
               <Box key={message.id}>
                 {
-                  message.receiver.username === data.username &&
+                  isShowReceiverInfo &&
                   <Box sx={{display: 'flex'}}>
-                    <Avatar sx={{marginRight: '10px'}} />
-                    <Box>
-                      <Typography variant="caption" sx={{display: 'flex'}}>
-                        {message.receiver.firstName},
-                        <Typography variant="body2" sx={{marginLeft: '5px'}}>7:38 PM</Typography>
+                    {
+                      isShowReceiverInfo && showReceiverInfoNextTime && <Avatar />
+                    }
+                    <Box sx={{marginLeft: showReceiverInfoNextTime ? '10px' : '50px'}}>
+                      <Typography variant="caption" sx={{display: showReceiverInfoNextTime ? 'flex' : 'none'}}>
+                          {message.receiver.firstName}, <Typography variant="body2" sx={{marginLeft: '5px'}}>7:38 PM</Typography>
                       </Typography>
-                      <Paper square elevation={0} sx={{padding: '10px', backgroundColor: '#F6F6F9', borderRadius: '0 10px 10px 10px'}}>
+                      <Paper square elevation={0} sx={{padding: '10px', backgroundColor: '#F6F6F9', borderRadius: '0 10px 10px 10px', marginTop: '2px'}}>
                         <Typography variant="body2" component="p">{message.text}</Typography>
                       </Paper>
                     </Box>
@@ -93,6 +101,8 @@ const MessengerUser = () => {
               </Box>
             )
           })
+          :
+          <Typography variant="body1" component="p">You haven't chat yet</Typography>
         } 
 
         
