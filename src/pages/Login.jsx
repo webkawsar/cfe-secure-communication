@@ -60,15 +60,15 @@ const Login = () => {
     if (isSuccess) {
       
       toast.success(message);
+      // dispatch(resetLogin())
       navigate(location?.state?.from ? location?.state?.from : "/dashboard");
     } 
 
     if (isError) {
 
       toast.error(message);
+      dispatch(resetLogin())
     }
-
-    dispatch(resetLogin())
 
   }, [isSuccess, isError]);
 

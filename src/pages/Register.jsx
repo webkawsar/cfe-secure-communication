@@ -62,15 +62,17 @@ const Register = () => {
       
       toast.success(message);
       // navigate('/')
+      // reset auth register state
+      dispatch(resetRegister());
     }
 
     if (isError) {
 
       toast.error(message);
+      // reset auth register state
+      dispatch(resetRegister());
     }
 
-    // reset auth register state
-    dispatch(resetRegister());
 
   }, [isSuccess, isError]);
 

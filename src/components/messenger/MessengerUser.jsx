@@ -76,9 +76,9 @@ const MessengerUser = () => {
                   isShowReceiverInfo &&
                   <Box sx={{display: 'flex'}}>
                     {
-                      isShowReceiverInfo && showReceiverInfoNextTime && <Avatar />
+                      <Avatar sx={{visibility: showReceiverInfoNextTime ? 'visible' : 'hidden'}} />
                     }
-                    <Box sx={{marginLeft: showReceiverInfoNextTime ? '10px' : '50px'}}>
+                    <Box sx={{marginLeft: '10px'}}>
                       <Typography variant="caption" sx={{display: showReceiverInfoNextTime ? 'flex' : 'none'}}>
                           {message.receiver.firstName}, <Typography variant="body2" sx={{marginLeft: '5px'}}>7:38 PM</Typography>
                       </Typography>
