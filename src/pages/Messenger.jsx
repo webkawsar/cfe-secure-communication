@@ -1,8 +1,9 @@
+import { Typography } from '@mui/material'
 import React from 'react'
 
 const Messenger = () => {
   return (
-    <div>Messenger Index Page</div>
+    <Typography variant="h4" component="h4" sx={{display: 'flex', justifyContent: 'center', alignContent: 'center'}}>Please tap on user</Typography>
   )
 }
 

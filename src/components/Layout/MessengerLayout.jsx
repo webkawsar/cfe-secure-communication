@@ -197,7 +197,7 @@ const MessengerLayout = ({ children }) => {
                         src="https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/avat-01-512.png"  
                     />
                 </ListItemIcon>
-                <ListItemText primary={user.username} />
+                <ListItemText primary={`${user.firstName} ${user.lastName}`} />
               </ListItemButton>
             );
           })}
