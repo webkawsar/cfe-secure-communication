@@ -49,16 +49,11 @@ const MessengerUser = () => {
             const nextMsg = array[index + 1];
             const hasReceiverNextMsg = nextMsg?.receiver?.username === loggedInUser?.username;
             const hasSenderNextMsg = nextMsg?.sender?.username === loggedInUser?.username;
-            // const isShowReceiverInfo = message.receiver.username === data?.username;
-            // const showReceiverInfoNextMsg = isShowReceiverInfo ? hasReceiverNextMsg : false;
-
-
-
-
-            // console.log(data, 'data')
-            // console.log(index, 'index');
-            console.log(nextMsg, 'nextMsg')
-            console.log(hasSenderNextMsg, 'hasSenderNextMsg')
+    
+            const prevMsg = array[index - 1];
+            const hasSenderPrevMsg = prevMsg?.sender?.username === loggedInUser?.username;
+            const hasReceiverPrevMsg = prevMsg?.receiver?.username === loggedInUser?.username;
+            
             return (
               <Box key={message.id}>
                 {sender ? (
@@ -69,7 +64,7 @@ const MessengerUser = () => {
                         float: 'right'
                       }}
                     >
-                      <Typography variant="body2" sx={{ marginLeft: "5px", visibility: hasSenderNextMsg ? 'hidden' : 'visible' }} >
+                      <Typography variant="body2" sx={{ marginLeft: "5px", display: (!hasSenderPrevMsg && hasSenderNextMsg ) ? 'block' : 'none' }} >
                         7:38 PM
                       </Typography>
                       <Paper
@@ -79,6 +74,7 @@ const MessengerUser = () => {
                           padding: "10px",
                           backgroundColor: "#dff9fb",
                           borderRadius: "10px 10px 0 10px",
+                          marginTop: "2px",
                         }}
                       >
                         <Typography variant="body2" component="p">
@@ -90,23 +86,21 @@ const MessengerUser = () => {
                   
                 ) : (
                   <Box sx={{ display: "flex" }}>
-                    {
-                      <Avatar
-                        sx={{
-                          visibility: hasReceiverNextMsg
-                            ? "visible"
-                            : "hidden",
-                        }}
-                      />
-                    }
+                    <Avatar
+                      sx={{
+                        visibility: (!hasReceiverPrevMsg && hasReceiverNextMsg)
+                          ? "visible"
+                          : "hidden",
+                      }}
+                    />
                     <Box sx={{ marginLeft: "10px" }}>
                       <Typography
                         variant="caption"
                         sx={{
-                          display: hasReceiverNextMsg ? "flex" : "none",
+                          display: (!hasReceiverPrevMsg && hasReceiverNextMsg) ? "flex" : "none",
                         }}
                       >
-                        {message.receiver.firstName},{" "}
+                        {message.sender.firstName},{" "}
                         <Typography variant="body2" sx={{ marginLeft: "5px" }}>
                           7:38 PM
                         </Typography>
