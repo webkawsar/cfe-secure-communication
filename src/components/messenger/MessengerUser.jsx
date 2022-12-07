@@ -6,6 +6,7 @@ import {
   TextField,
   Typography
 } from "@mui/material";
+import { format } from "date-fns";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoaderData } from "react-router-dom";
@@ -44,7 +45,7 @@ const MessengerUser = () => {
       <Box sx={{ overflow: "hidden" }}>
         {messages.length ? (
           messages.map((message, index, array) => {
-
+            
             const sender = message?.sender?.username === loggedInUser?.username;
             const nextMsg = array[index + 1];
             const hasReceiverNextMsg = nextMsg?.receiver?.username === loggedInUser?.username;
@@ -65,7 +66,9 @@ const MessengerUser = () => {
                       }}
                     >
                       <Typography variant="body2" sx={{ marginLeft: "5px", display: (!hasSenderPrevMsg && hasSenderNextMsg ) ? 'block' : 'none' }} >
-                        7:38 PM
+                        {
+                          format(new Date(message?.createdAt), 'h:m a')
+                        }
                       </Typography>
                       <Paper
                         square
@@ -102,7 +105,7 @@ const MessengerUser = () => {
                       >
                         {message.sender.firstName},{" "}
                         <Typography variant="body2" sx={{ marginLeft: "5px" }}>
-                          7:38 PM
+                          {format(new Date(message?.createdAt), 'h:m a')}
                         </Typography>
                       </Typography>
                       <Paper
