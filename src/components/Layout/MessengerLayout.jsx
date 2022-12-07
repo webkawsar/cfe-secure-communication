@@ -90,7 +90,10 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const MessengerLayout = ({ children }) => {
-  const { isError, isSuccess, isLoading, message, users } = useSelector(state => state.users);
+  const { isError, isSuccess, isLoading, message, users } = useSelector(
+    (state) => state.users
+  );
+  const loggedInUser = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const theme = useTheme();
   const [open, setOpen] = useState(true);
@@ -98,18 +101,14 @@ const MessengerLayout = ({ children }) => {
   const menuOpen = Boolean(anchorEl);
 
   useEffect(() => {
-
     dispatch(registeredUser());
-
-  }, [])
+  }, []);
 
   useEffect(() => {
-
-    if(isError) {
+    if (isError) {
       toast.error(message);
     }
-    
-  }, [isError])
+  }, [isError]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -187,21 +186,27 @@ const MessengerLayout = ({ children }) => {
         <Divider />
 
         <List component="nav">
-          {users.map((user) => {
-            
-            return (
-              <ListItemButton component={Link} to={`user/${user.id}`} key={user.id}>
-                <ListItemIcon>
+          {users
+            .filter((user) => user.email !== loggedInUser.email)
+            .map((user) => {
+              return (
+                <ListItemButton
+                  component={Link}
+                  to={`user/${user.id}`}
+                  key={user.id}
+                >
+                  <ListItemIcon>
                     <Avatar
-                        alt="Chat User"
-                        src="https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/avat-01-512.png"  
+                      alt="Chat User"
+                      src="https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/avat-01-512.png"
                     />
-                </ListItemIcon>
-                <ListItemText primary={`${user.firstName} ${user.lastName}`} />
-              </ListItemButton>
-            );
-          })}
-
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={`${user.firstName} ${user.lastName}`}
+                  />
+                </ListItemButton>
+              );
+            })}
         </List>
       </Drawer>
 
