@@ -1,7 +1,16 @@
-import { Avatar, Box, Button, Paper, TextField, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Paper,
+  TextField,
+  Typography
+} from "@mui/material";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLoaderData } from "react-router-dom";
 import axiosPrivateInstance from "../../axios";
+import { sendMessage } from "../../store/messenger/messengerSlice";
 
 export const loader = async ({ params }) => {
   const { data } = await axiosPrivateInstance().get(`/users/${params.userId}`);
@@ -13,40 +22,78 @@ export const loader = async ({ params }) => {
 
 const MessengerUser = () => {
   const { data, messages } = useLoaderData();
-
+  const loggedInUser = useSelector((state) => state?.auth?.user);
+  const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const data = new FormData(event.currentTarget);
-    const message = data.get("message")
+    const inputData = new FormData(event.currentTarget);
+    const message = {
+      text: inputData.get("message"),
+      receiver: data.id,
+    };
 
-    console.log(message, 'message')
+    dispatch(sendMessage(message));
   };
 
+  // console.log(loggedInUser, 'loggedInUser');
 
   return (
-    <Box>
-      <Box>
+    <Box sx={{ maxHeight: "100vh" }}>
+      <Box sx={{ overflow: "hidden" }}>
         {messages.length ? (
           messages.map((message, index, array) => {
+
+            const sender = message?.sender?.username === loggedInUser?.username;
             const nextMsg = array[index + 1];
-            const hasReceiverNextMsg =
-              nextMsg?.receiver?.username === data?.username;
-            const isShowReceiverInfo =
-              message.receiver.username === data.username;
-            const showReceiverInfoNextTime =
-              message?.receiver?.username === data?.username
-                ? hasReceiverNextMsg
-                : false;
+            const hasReceiverNextMsg = nextMsg?.receiver?.username === loggedInUser?.username;
+            const hasSenderNextMsg = nextMsg?.sender?.username === loggedInUser?.username;
+            // const isShowReceiverInfo = message.receiver.username === data?.username;
+            // const showReceiverInfoNextMsg = isShowReceiverInfo ? hasReceiverNextMsg : false;
+
+
+
+
+            // console.log(data, 'data')
+            // console.log(index, 'index');
+            console.log(nextMsg, 'nextMsg')
+            console.log(hasSenderNextMsg, 'hasSenderNextMsg')
             return (
               <Box key={message.id}>
-                {isShowReceiverInfo && (
+                {sender ? (
+                  <Box sx={{overflow: 'hidden'}}>
+                    <Box
+                      sx={{
+                        textAlign: "right",
+                        float: 'right'
+                      }}
+                    >
+                      <Typography variant="body2" sx={{ marginLeft: "5px", visibility: hasSenderNextMsg ? 'hidden' : 'visible' }} >
+                        7:38 PM
+                      </Typography>
+                      <Paper
+                        square
+                        elevation={0}
+                        sx={{
+                          padding: "10px",
+                          backgroundColor: "#dff9fb",
+                          borderRadius: "10px 10px 0 10px",
+                        }}
+                      >
+                        <Typography variant="body2" component="p">
+                          {message.text}
+                        </Typography>
+                      </Paper>
+                    </Box>
+                  </Box>
+                  
+                ) : (
                   <Box sx={{ display: "flex" }}>
                     {
                       <Avatar
                         sx={{
-                          visibility: showReceiverInfoNextTime
+                          visibility: hasReceiverNextMsg
                             ? "visible"
                             : "hidden",
                         }}
@@ -56,7 +103,7 @@ const MessengerUser = () => {
                       <Typography
                         variant="caption"
                         sx={{
-                          display: showReceiverInfoNextTime ? "flex" : "none",
+                          display: hasReceiverNextMsg ? "flex" : "none",
                         }}
                       >
                         {message.receiver.firstName},{" "}
@@ -81,60 +128,41 @@ const MessengerUser = () => {
                     </Box>
                   </Box>
                 )}
-
-                {message.sender.username === data.username && (
-                  <Box
-                    sx={{
-                      textAlign: "right",
-                      display: "inline-block",
-                      float: "right",
-                    }}
-                  >
-                    <Typography variant="body2" sx={{ marginLeft: "5px" }}>
-                      7:38 PM
-                    </Typography>
-                    <Paper
-                      square
-                      elevation={0}
-                      sx={{
-                        padding: "10px",
-                        backgroundColor: "#dff9fb",
-                        borderRadius: "10px 10px 0 10px",
-                      }}
-                    >
-                      <Typography variant="body2" component="p">
-                        {message.text}
-                      </Typography>
-                    </Paper>
-                  </Box>
-                )}
               </Box>
             );
           })
         ) : (
-          <Typography variant="body1" component="p">
-            You haven't chat yet
+          <Typography variant="h5" component="h5" sx={{ textAlign: "center" }}>
+            You haven't had any chat with {`${data.firstName} ${data.lastName}`}{" "}
+            yet
           </Typography>
         )}
       </Box>
 
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        noValidate
-      >
-        <TextField
-          margin="normal"
-          required
-          id="message"
-          name="message"
-          variant="filled"
-          sx={{width: '100%', borderRadius: '70%'}}
-          multiline
-          maxRows={9}
-        />
+      <Box sx={{ position: "fixed", bottom: 0 }}>
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          noValidate
+          sx={{ display: "flex", alignItems: "center" }}
+        >
+          <TextField
+            margin="normal"
+            required
+            id="message"
+            name="message"
+            variant="filled"
+            label="Type a message"
+            sx={{ borderRadius: "50px 50px 50px 50px" }}
+            multiline
+            maxRows={9}
+            fullWidth
+          />
 
-        <Button>Send</Button>
+          <Button type="submit" variant="contained" sx={{ ml: 2 }}>
+            Send
+          </Button>
+        </Box>
       </Box>
     </Box>
   );
