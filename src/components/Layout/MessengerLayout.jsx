@@ -198,8 +198,7 @@ const MessengerLayout = ({ children }) => {
                   <ListItemIcon>
                     <Avatar
                       alt="Chat User"
-                      src="https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/avat-01-512.png"
-                    />
+                    >{user?.firstName?.slice(0, 1)}</Avatar>
                   </ListItemIcon>
                   <ListItemText
                     primary={`${user.firstName} ${user.lastName}`}

@@ -54,7 +54,7 @@ const MessengerUser = () => {
             const prevMsg = array[index - 1];
             const hasSenderPrevMsg = prevMsg?.sender?.username === loggedInUser?.username;
             const hasReceiverPrevMsg = prevMsg?.receiver?.username === loggedInUser?.username;
-            
+
             return (
               <Box key={message.id}>
                 {sender ? (
@@ -65,7 +65,7 @@ const MessengerUser = () => {
                         float: 'right'
                       }}
                     >
-                      <Typography variant="body2" sx={{ marginLeft: "5px", display: (!hasSenderPrevMsg && hasSenderNextMsg ) ? 'block' : 'none' }} >
+                      <Typography variant="body2" sx={{ marginLeft: "5px", display: ((!hasSenderPrevMsg && hasSenderNextMsg) || (!hasSenderPrevMsg && !hasSenderNextMsg)) ? 'block' : 'none' }} >
                         {
                           format(new Date(message?.createdAt), 'h:m a')
                         }
@@ -91,16 +91,16 @@ const MessengerUser = () => {
                   <Box sx={{ display: "flex" }}>
                     <Avatar
                       sx={{
-                        visibility: (!hasReceiverPrevMsg && hasReceiverNextMsg)
+                        visibility: ((!hasReceiverPrevMsg && hasReceiverNextMsg) || (!hasReceiverPrevMsg && !hasReceiverNextMsg))
                           ? "visible"
                           : "hidden",
                       }}
-                    />
+                    >{message?.sender?.firstName?.slice(0, 1)}</Avatar>
                     <Box sx={{ marginLeft: "10px" }}>
                       <Typography
                         variant="caption"
                         sx={{
-                          display: (!hasReceiverPrevMsg && hasReceiverNextMsg) ? "flex" : "none",
+                          display: ((!hasReceiverPrevMsg && hasReceiverNextMsg) || (!hasReceiverPrevMsg && !hasReceiverNextMsg)) ? "flex" : "none",
                         }}
                       >
                         {message.sender.firstName},{" "}
