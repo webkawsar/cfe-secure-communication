@@ -167,7 +167,7 @@ const MessengerLayout = ({ children }) => {
               aria-haspopup="true"
               aria-expanded={menuOpen ? "true" : undefined}
             >
-              <Avatar sx={{ width: 32, height: 32 }}>K</Avatar>
+              <Avatar sx={{ width: 32, height: 32 }}>{loggedInUser?.firstName?.slice(0, 1)}</Avatar>
             </IconButton>
           </Tooltip>
         </Toolbar>
