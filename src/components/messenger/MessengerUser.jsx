@@ -1,18 +1,18 @@
+import SendIcon from '@mui/icons-material/Send';
 import {
   Avatar,
-  Box,
-  Button,
-  Paper,
+  Box, Paper,
   TextField,
   Typography
 } from "@mui/material";
+import IconButton from '@mui/material/IconButton';
 import { styled } from "@mui/material/styles";
 import { format } from "date-fns";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoaderData } from "react-router-dom";
 import axiosPrivateInstance from "../../axios";
-import { sendMessage } from "../../store/messenger/messengerSlice";
+import { sendMessage } from '../../store/messenger/messengerSlice';
 
 export const loader = async ({ params }) => {
   const { data } = await axiosPrivateInstance().get(`/users/${params.userId}`);
@@ -59,6 +59,8 @@ const MessengerUser = () => {
       text: inputData.get("message"),
       receiver: data.id,
     };
+
+    console.log(message, 'message')
 
     // validation
     if(!message.text) return false;
@@ -211,9 +213,9 @@ const MessengerUser = () => {
             maxRows={9}
           />
 
-          <Button type="submit" variant="contained" sx={{ ml: 2 }}>
-            Send
-          </Button>
+          <IconButton type='submit' color="primary">
+            <SendIcon />
+          </IconButton>
         </Box>
       </Box>
     </Box>
