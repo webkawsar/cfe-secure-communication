@@ -60,10 +60,8 @@ const MessengerUser = () => {
       receiver: data.id,
     };
 
-    console.log(message, 'message')
-
     // validation
-    if(!message.text) return false;
+    if(!message.text || message.text === ' ') return false;
 
     dispatch(sendMessage(message));
   };
@@ -214,7 +212,7 @@ const MessengerUser = () => {
           />
 
           <IconButton type='submit' color="primary">
-            <SendIcon />
+            <SendIcon fontSize="large" />
           </IconButton>
         </Box>
       </Box>
