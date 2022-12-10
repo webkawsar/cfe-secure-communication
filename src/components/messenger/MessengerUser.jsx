@@ -12,6 +12,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoaderData } from "react-router-dom";
 import axiosPrivateInstance from "../../axios";
+import socket from '../../config/web-sockets';
 import { sendMessage } from '../../store/messenger/messengerSlice';
 
 export const loader = async ({ params }) => {
@@ -49,6 +50,7 @@ const CustomizedTextField = styled(TextField)`
 const MessengerUser = () => {
   const { data, messages } = useLoaderData();
   const loggedInUser = useSelector((state) => state?.auth?.user);
+  const messenger = useSelector(state => state.messenger);
   const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
@@ -63,8 +65,20 @@ const MessengerUser = () => {
     // validation
     if(!message.text || message.text === ' ') return false;
 
+    // socket.io event
+    socket.emit('send-message', message);
+
     dispatch(sendMessage(message));
+
+    socket.on('get-message', data => {
+      console.log(data, 'get message data')
+    })
+
+    // reset input field
+    document.getElementById('message').value = '';
   };
+
+  // console.log(messenger, 'messenger');
 
   return (
     <Box sx={{ maxHeight: "100vh"}}>
